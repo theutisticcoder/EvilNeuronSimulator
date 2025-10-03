@@ -97,7 +97,7 @@ document.addEventListener('keyup', (event) => {
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
-    scene.rotation.y = Math.PI / 2;
+    scene.rotation.x = Math.PI / 2;
     // Calculate movement based on keys pressed
     if (keys['w']) camera.position.z -= playerSpeed;
     if (keys['s']) camera.position.z += playerSpeed;
