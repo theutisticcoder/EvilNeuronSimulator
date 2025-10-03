@@ -113,7 +113,7 @@ function animate() {
     const wallBoundingBox = new THREE.Box3().setFromObject(walls);
 
     // 3. Check for intersection
-    if (cameraBoundingBox.intersectsBox(wallBoundingBox)) {
+    if (!cameraBoundingBox.intersectsBox(wallBoundingBox)) {
         // Collision detected! Handle accordingly
         if (keys['w']) camera.position.y -= playerSpeed;
         if (keys['s']) camera.position.y += playerSpeed;
