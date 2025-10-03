@@ -67,7 +67,7 @@ function AddToGeometry(mainObject, objectToAdd) { objectToAdd.updateMatrix(); ma
 var walls;
 function createMazeGeometry(maze) {
     const wallGeometry = new THREE.BoxGeometry(1, 2, 1);
-    const wallMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('/texture.png') })
+    const wallMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('texture.png') })
 
     for (let i = 0; i < maze.length; i++) {
         for (let j = 0; j < maze[i].length; j++) {
