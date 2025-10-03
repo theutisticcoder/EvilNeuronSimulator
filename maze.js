@@ -105,7 +105,6 @@ document.addEventListener('keyup', (event) => {
 
 // Animation loop
 function animate() {
-    requestAnimationFrame(animate);
     scene.rotation.x = Math.PI / 2;
     // Calculate movement based on keys pressed
     const cameraBoundingBox = new THREE.Box3().setFromObject(camera);
@@ -114,15 +113,18 @@ function animate() {
     const wallBoundingBox = new THREE.Box3().setFromObject(walls);
 
     // 3. Check for intersection
+    if (!cameraBoundingBox.intersectsBox(wallBoundingBox)) {
         // Collision detected! Handle accordingly
         if (keys['w']) camera.position.y -= playerSpeed;
         if (keys['s']) camera.position.y += playerSpeed;
         if (keys['a']) camera.position.x -= playerSpeed;
         if (keys['d']) camera.position.x += playerSpeed;
 
-    
+    }
 
     renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+
 }
 
 // Start the animation
@@ -134,4 +136,3 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-img.onload = init;
