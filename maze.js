@@ -2,14 +2,15 @@
 let scene, camera, renderer;
 let mazeData; // 2D array representing the maze (e.g., 0 for path, 1 for wall)
 const MAZE_SIZE = 21; // Must be odd for simpler perfect maze generation
-    var maze = [];
+var maze = [];
 
 
 
 const img = new Image();
 img.src = 'maze.png'; // Replace with your image path
 
-img.onload = function () {
+function init() {
+
     const canvas = document.createElement('canvas');
     canvas.width = img.width;
     canvas.height = img.height;
@@ -36,9 +37,7 @@ img.onload = function () {
     }
 
     console.log(maze); // Your 2D array representing the maze
-};
 
-function init() {
     // Scene setup
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -81,11 +80,35 @@ function createMazeGeometry(maze) {
     }
 }
 
+// --- PLAYER MOVEMENT (WASD) ---
+const playerSpeed = 0.5;
+const keys = {};
+
+// Listen for key presses
+document.addEventListener('keydown', (event) => {
+    keys[event.key.toLowerCase()] = true;
+});
+
+// Listen for key releases
+document.addEventListener('keyup', (event) => {
+    keys[event.key.toLowerCase()] = false;
+});
+
+// Animation loop
 function animate() {
     requestAnimationFrame(animate);
-    // Add player movement, collision detection, etc. here
+
+    // Calculate movement based on keys pressed
+    if (keys['w']) camera.position.z -= playerSpeed;
+    if (keys['s']) camera.position.z += playerSpeed;
+    if (keys['a']) camera.position.x -= playerSpeed;
+    if (keys['d']) camera.position.x += playerSpeed;
+
     renderer.render(scene, camera);
 }
+
+// Start the animation
+
 
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
