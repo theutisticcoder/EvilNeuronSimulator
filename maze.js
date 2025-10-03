@@ -63,8 +63,8 @@ function init() {
 
     animate();
 }
-
-
+function AddToGeometry(mainObject, objectToAdd) { objectToAdd.updateMatrix(); mainObject.geometry.merge(objectToAdd.geometry, objectToAdd.matrix); return mainObject;     }
+var walls;
 function createMazeGeometry(maze) {
     const wallGeometry = new THREE.BoxGeometry(1, 2, 1);
     const wallMaterial = new THREE.MeshPhongMaterial({ color: 0x888888 });
@@ -72,8 +72,15 @@ function createMazeGeometry(maze) {
     for (let i = 0; i < maze.length; i++) {
         for (let j = 0; j < maze[i].length; j++) {
             if (maze[i][j] === 1) { // If it's a wall
+                
                 const wall = new THREE.Mesh(wallGeometry, wallMaterial);
                 wall.position.set(j - maze[i].length / 2, 1, i - maze.length / 2);
+                if(i === 0 && j ===0){
+                    walls = wall;
+                }
+                else{
+                    AddToGeometry(walls, wall);
+                }
                 scene.add(wall);
             }
         }
@@ -102,7 +109,7 @@ function animate() {
     const cameraBoundingBox = new THREE.Box3().setFromObject(camera);
 
     // 2. Create a bounding box for the wall
-    const wallBoundingBox = new THREE.Box3().setFromObject(wallObject);
+    const wallBoundingBox = new THREE.Box3().setFromObject(walls);
 
     // 3. Check for intersection
     if (cameraBoundingBox.intersectsBox(wallBoundingBox)) {
