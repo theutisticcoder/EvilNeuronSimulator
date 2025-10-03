@@ -99,10 +99,20 @@ function animate() {
     requestAnimationFrame(animate);
     scene.rotation.x = Math.PI / 2;
     // Calculate movement based on keys pressed
-    if (keys['w']) camera.position.y -= playerSpeed;
-    if (keys['s']) camera.position.y += playerSpeed;
-    if (keys['a']) camera.position.x -= playerSpeed;
-    if (keys['d']) camera.position.x += playerSpeed;
+    const cameraBoundingBox = new THREE.Box3().setFromObject(camera);
+
+    // 2. Create a bounding box for the wall
+    const wallBoundingBox = new THREE.Box3().setFromObject(wallObject);
+
+    // 3. Check for intersection
+    if (cameraBoundingBox.intersectsBox(wallBoundingBox)) {
+        // Collision detected! Handle accordingly
+        if (keys['w']) camera.position.y -= playerSpeed;
+        if (keys['s']) camera.position.y += playerSpeed;
+        if (keys['a']) camera.position.x -= playerSpeed;
+        if (keys['d']) camera.position.x += playerSpeed;
+
+    }
 
     renderer.render(scene, camera);
 }
