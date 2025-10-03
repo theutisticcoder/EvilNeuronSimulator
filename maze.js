@@ -81,7 +81,7 @@ function createMazeGeometry(maze) {
 }
 
 // --- PLAYER MOVEMENT (WASD) ---
-const playerSpeed = 0.5;
+const playerSpeed = 0.1;
 const keys = {};
 
 // Listen for key presses
