@@ -99,8 +99,8 @@ function animate() {
     requestAnimationFrame(animate);
     scene.rotation.x = Math.PI / 2;
     // Calculate movement based on keys pressed
-    if (keys['w']) camera.position.z -= playerSpeed;
-    if (keys['s']) camera.position.z += playerSpeed;
+    if (keys['w']) camera.position.y -= playerSpeed;
+    if (keys['s']) camera.position.y += playerSpeed;
     if (keys['a']) camera.position.x -= playerSpeed;
     if (keys['d']) camera.position.x += playerSpeed;
 
