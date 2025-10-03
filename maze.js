@@ -47,10 +47,9 @@ function init() {
     document.body.appendChild(renderer.domElement);
 
     // Generate maze data (e.g., using Depth-First Search)
-    mazeData = generateMaze(MAZE_SIZE, MAZE_SIZE);
 
     // Create 3D maze objects based on mazeData
-    createMazeGeometry(mazeData);
+    createMazeGeometry(maze);
 
     // Set camera initial position
     camera.position.set(0, 5, 0); // Adjust as needed
