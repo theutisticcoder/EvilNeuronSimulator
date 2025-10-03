@@ -81,10 +81,11 @@ function createMazeGeometry(maze) {
                 else{
                     AddToGeometry(walls, wall);
                 }
-                scene.add(wall);
             }
         }
     }
+                scene.add(walls);
+
 }
 
 // --- PLAYER MOVEMENT (WASD) ---
