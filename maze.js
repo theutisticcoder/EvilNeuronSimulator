@@ -2,6 +2,41 @@
 let scene, camera, renderer;
 let mazeData; // 2D array representing the maze (e.g., 0 for path, 1 for wall)
 const MAZE_SIZE = 21; // Must be odd for simpler perfect maze generation
+    var maze = [];
+
+
+
+const img = new Image();
+img.src = 'maze.png'; // Replace with your image path
+
+img.onload = function () {
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = imageData.data; // This is a 1D array of RGBA values
+
+    for (let y = 0; y < canvas.height; y++) {
+        const row = [];
+        for (let x = 0; x < canvas.width; x++) {
+            const i = (y * canvas.width + x) * 4; // Index of the red component for the current pixel
+            const r = pixels[i];
+            const g = pixels[i + 1];
+            const b = pixels[i + 2];
+
+            // Assuming black and white, check if the pixel is closer to black or white
+            // You might need to adjust the threshold depending on your image
+            const isBlack = (r < 128 && g < 128 && b < 128); // Example threshold
+            row.push(isBlack ? 1 : 0); // 1 for black (wall), 0 for white (path)
+        }
+        maze.push(row);
+    }
+
+    console.log(maze); // Your 2D array representing the maze
+};
 
 function init() {
     // Scene setup
@@ -31,19 +66,6 @@ function init() {
     animate();
 }
 
-function generateMaze(width, height) {
-    // Implement a maze generation algorithm (e.g., Depth-First Search)
-    // This is a placeholder; a full implementation is complex.
-    const maze = Array(height).fill(0).map(() => Array(width).fill(1)); // All walls initially
-
-    // Basic example: clear a path
-    for (let i = 1; i < height - 1; i += 2) {
-        for (let j = 1; j < width - 1; j += 2) {
-            maze[i][j] = 0; // Path
-        }
-    }
-    return maze;
-}
 
 function createMazeGeometry(maze) {
     const wallGeometry = new THREE.BoxGeometry(1, 2, 1);
