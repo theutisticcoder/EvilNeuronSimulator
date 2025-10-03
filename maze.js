@@ -66,7 +66,7 @@ function init() {
 function AddToGeometry(mainObject, objectToAdd) { objectToAdd.updateMatrix(); mainObject.geometry.merge(objectToAdd.geometry, objectToAdd.matrix); return mainObject;     }
 var walls;
 function createMazeGeometry(maze) {
-    const wallGeometry = new THREE.BoxGeometry(3, 6, 3);
+    const wallGeometry = new THREE.BoxGeometry(1, 6, 1);
     const wallMaterial = new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('/texture.png') })
 
     for (let i = 0; i < maze.length; i++) {
