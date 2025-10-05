@@ -105,6 +105,8 @@ document.addEventListener('keyup', (event) => {
 
 // Animation loop
 function animate() {
+    requestAnimationFrame(animate);
+
     scene.rotation.x = Math.PI / 2;
     // Calculate movement based on keys pressed
     const cameraBoundingBox = new THREE.Box3().setFromObject(camera);
@@ -123,7 +125,6 @@ function animate() {
     }
 
     renderer.render(scene, camera);
-    requestAnimationFrame(animate);
 
 }
 
@@ -131,7 +132,6 @@ function animate() {
 
 
 window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
